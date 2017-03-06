@@ -7,8 +7,8 @@ curl command parser:
 
 from pprint import pprint
 from argparse import ArgumentParser
-from urllib.parse import parse_qsl
-from http import cookies
+from urlparse import parse_qsl
+from Cookie import SimpleCookie
 import shlex
 
 def parse(cmd):
@@ -50,7 +50,7 @@ def parse(cmd):
 
     # cookie
     if "Cookie" in headers:
-        C = cookies.SimpleCookie()
+        C = SimpleCookie()
         C.load(headers['Cookie'])
         c = dict(( (k,C[k].value) for k in C ))
         headers['Cookie'] = None
